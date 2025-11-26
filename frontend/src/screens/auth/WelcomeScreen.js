@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 const WelcomeScreen = ({ navigation }) => (
   <View style={styles.container}>
     <Image source={require('../../../assets/icon.png')} style={styles.logo} />
-    <Text style={styles.title}>Dog Walker</Text>
+    <Text style={styles.title}>PawWalks- A Dog Walking App</Text>
     <Text style={styles.subtitle}>
       Connect with trusted walkers and track every step in real time.
     </Text>
