@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
@@ -7,10 +7,19 @@ import { useFetch } from '../../hooks/useFetch';
 const OwnerDashboardScreen = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
-  const { data: walks = [] } = useFetch('/walks/owner', [user?.id], {
+  const { data: walksRaw, refetch } = useFetch('/walks/owner', [user?.id], {
     initialValue: [],
     skip: !user,
   });
+  const walks = Array.isArray(walksRaw) ? walksRaw : [];
+
+  // Polling: update walks every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [refetch]);
 
   const upcoming = useMemo(
     () => walks.filter((walk) => ['requested', 'accepted'].includes(walk.status)),

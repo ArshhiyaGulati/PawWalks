@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,10 +13,18 @@ import { useFetch } from '../../hooks/useFetch';
 const DogListScreen = () => {
   const { user } = useAuth();
   const navigation = useNavigation();
-  const { data: dogs = [] } = useFetch('/dogs', [user?.id], {
+  const { data: dogs = [], refetch } = useFetch('/dogs', [user?.id], {
     initialValue: [],
     skip: !user,
   });
+
+  // Polling: fetch dog list every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch();
+    }, 5000); // 5000 ms = 5 seconds
+    return () => clearInterval(interval);
+  }, [refetch]);
 
   return (
     <View style={styles.container}>

@@ -36,6 +36,8 @@ const BookWalkScreen = () => {
       }
     };
     loadDogs();
+    const interval = setInterval(loadDogs, 5000);
+    return () => clearInterval(interval);
   }, [token, user?.id]);
 
   const toggleDog = (id) => {

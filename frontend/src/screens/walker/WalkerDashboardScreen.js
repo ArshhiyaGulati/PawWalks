@@ -1,11 +1,34 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
 import { useFetch } from '../../hooks/useFetch';
+import { useFocusEffect } from '@react-navigation/native';
 
 const WalkerDashboardScreen = () => {
   const { user } = useAuth();
-  const { data: walks = [] } = useFetch('/walks/walker', [user?.id], []);
+
+  const { data: walksRaw, refetch } = useFetch(
+    '/walks/walker',
+    [user?.id],
+    []
+  );
+
+  const walks = Array.isArray(walksRaw) ? walksRaw : [];
+
+  // Refresh whenever screen becomes active
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
+
+  // Polling: update walks every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [refetch]);
 
   const accepted = walks.filter((walk) => walk.status === 'accepted');
   const ongoing = walks.filter((walk) => walk.status === 'ongoing');
@@ -13,6 +36,7 @@ const WalkerDashboardScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Your queue</Text>
+
       <Text style={styles.section}>Ongoing</Text>
       <FlatList
         data={ongoing}
@@ -25,6 +49,7 @@ const WalkerDashboardScreen = () => {
         )}
         ListEmptyComponent={<Text style={styles.empty}>No active walk.</Text>}
       />
+
       <Text style={styles.section}>Accepted</Text>
       <FlatList
         data={accepted}
@@ -58,4 +83,3 @@ const styles = StyleSheet.create({
 });
 
 export default WalkerDashboardScreen;
-

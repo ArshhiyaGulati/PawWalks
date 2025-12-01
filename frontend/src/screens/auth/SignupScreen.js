@@ -28,7 +28,8 @@ const SignupScreen = () => {
     try {
       await signup(form);
     } catch (err) {
-      setError('Signup failed');
+      console.log('Signup error:', err);
+      setError(err.message || 'Signup failed');
     } finally {
       setLoading(false);
     }

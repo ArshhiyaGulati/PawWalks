@@ -1,4 +1,4 @@
-const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:5000';
+const API_URL = 'http://192.168.29.164:5000';
 
 export const request = async (path, options = {}) => {
   const token = options.token;
