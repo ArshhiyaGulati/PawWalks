@@ -80,4 +80,11 @@ Set the API URL (defaults to `http://localhost:5000`) via `EXPO_PUBLIC_API_URL`.
   3. Walker accepts and starts walk; observe owner live map updates.
 
 Happy walking! 🐕
+<img width="702" height="849" alt="image" src="https://github.com/user-attachments/assets/7b35a654-84da-4c98-8a73-82f618e2f39c" />
+
+<img width="621" height="822" alt="image" src="https://github.com/user-attachments/assets/a0200063-d39b-47ab-b239-04695c89f13c" />
+<img width="703" height="328" alt="image" src="https://github.com/user-attachments/assets/97d934a6-53b7-40bb-ac5d-423887bb8c62" />
+<img width="697" height="487" alt="image" src="https://github.com/user-attachments/assets/7df8a578-a112-4df2-b001-50b10dd99a8c" />
+<img width="704" height="870" alt="image" src="https://github.com/user-attachments/assets/3df1b600-b09b-41df-8480-810e0a5b56a8" />
+
 
